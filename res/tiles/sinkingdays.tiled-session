@@ -1,0 +1,47 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/Leonardo/IdeaProjects/SinkingDays/res/maps/untitled.js",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "C:/Users/Leonardo/IdeaProjects/SinkingDays/res/maps/untitled.js": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 418.6666666666666,
+                "y": 297.33333333333337
+            }
+        },
+        "tiled/bush.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tiled/grass.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Leonardo/IdeaProjects/SinkingDays/res/tiles",
+    "map.height": 32,
+    "map.lastUsedFormat": "js",
+    "map.width": 32,
+    "openFiles": [
+        "C:/Users/Leonardo/IdeaProjects/SinkingDays/res/maps/untitled.js",
+        "tiled/bush.tsx",
+        "tiled/grass.tsx"
+    ],
+    "project": "sinkingdays.tiled-project",
+    "recentFiles": [
+        "tiled/grass.tsx",
+        "tiled/bush.tsx",
+        "C:/Users/Leonardo/IdeaProjects/SinkingDays/res/maps/untitled.js"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}

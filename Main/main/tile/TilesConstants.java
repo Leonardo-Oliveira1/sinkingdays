@@ -12,7 +12,8 @@ public class TilesConstants {
 	public BufferedImage GRASS;
 	public BufferedImage STONE_IN_WATER;
 	public BufferedImage BUSH;
-	
+	public BufferedImage STOP;
+
 	public TilesConstants() {
 		try {
 			WATER = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
@@ -20,6 +21,7 @@ public class TilesConstants {
 			GRASS = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
 			STONE_IN_WATER = ImageIO.read(getClass().getResourceAsStream("/tiles/water_stone.png"));
 			BUSH = ImageIO.read(getClass().getResourceAsStream("/tiles/bush.png"));
+			STOP = ImageIO.read(getClass().getResourceAsStream("/tiles/stop.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

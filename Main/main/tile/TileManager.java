@@ -43,6 +43,7 @@ public class TileManager {
 		setTile(3, tiles.GRASS, false);
 		setTile(4, tiles.STONE_IN_WATER, true);
 		setTile(5, tiles.BUSH, true);
+		setTile(6, tiles.STOP, true);
 	}
 
 	private void setTile(int index, BufferedImage tile_texture, boolean collision) {
