@@ -2,8 +2,10 @@ package main;
 
 public class GameThread implements Runnable{
 
-	int FPS = 60;
-	Thread gameThread;
+	private final int UPS = 60;
+	private final double UPDATE_INTERVAL = 1_000_000_000.0 / UPS;
+
+    Thread gameThread;
 	GamePanel gamePanel;
 	EntityManager entityManager;
 
@@ -21,32 +23,23 @@ public class GameThread implements Runnable{
 
 	@Override
 	public void run() {
-		
-		double drawInterval = 1000000000/FPS; //0.01666 seconds each frame
-		double nextDrawTime = System.nanoTime() + drawInterval;
-		
-		while(gameThread != null) {
 
-			entityManager.update();
-			gamePanel.repaint();
+		long previousTime = System.nanoTime();
+		double deltaUpdate = 0;
 
-			try {
-				double remainingTime = nextDrawTime - System.nanoTime();
-				remainingTime = remainingTime/1000000;
-				
-				if(remainingTime < 0) {
-					remainingTime = 0;
-				}
-				
-				Thread.sleep((long) remainingTime);
-				
-				nextDrawTime += drawInterval;
-				
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		while (gameThread != null) {
+
+			long currentTime = System.nanoTime();
+
+            deltaUpdate += (currentTime - previousTime) / UPDATE_INTERVAL;
+			previousTime = currentTime;
+
+			while (deltaUpdate >= 1) {
+				entityManager.update();
+				deltaUpdate--;
 			}
-			
+
+			gamePanel.repaint();
 		}
 	}
-
 }
