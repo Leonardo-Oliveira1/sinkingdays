@@ -1,104 +1,99 @@
 package main.tile;
 
+import main.core.GamePanel;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import main.core.GamePanel;
-
 public class TileManager {
 
 	GamePanel gp;
 	public Tile[] tile;
-	public int[][] mapTileNum;
-	
+	public int[][] baseLayer;    // camada do terreno
+	public int[][] objectLayer;  // árvores, pedras, etc.
+
+	final int originalTileSize = 16;
+	final int scale = 4;
+
+	public final int tileSize = originalTileSize * scale;
+
 	public TileManager(GamePanel gp) {
-		
 		this.gp = gp;
-		
+
+		// inicializa tiles
 		tile = new Tile[10];
-		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
-		
 		getTileImage();
-		loadMap("/maps/map01.txt");
+
+		// inicializa layers de acordo com tamanho do mapa
+		baseLayer = new int[gp.maxWorldCol][gp.maxWorldRow];
+		objectLayer = new int[gp.maxWorldCol][gp.maxWorldRow];
+
+		loadLayer("/maps/terrain.txt", baseLayer);
+		loadLayer("/maps/objects.txt", objectLayer);
 	}
-	
-	public void getTileImage() {
+
+	private void getTileImage() {
 		TilesConstants tiles = new TilesConstants();
-		
-		setTile(0, tiles.WATER, true);
-		setTile(1, tiles.SAND, false);
-		setTile(2, tiles.GRASS, false);
-		setTile(3, tiles.STONE_IN_WATER, true);
-		setTile(4, tiles.BUSH, true);
+
+		setTile(1, tiles.WATER, true);
+		setTile(2, tiles.SAND, false);
+		setTile(3, tiles.GRASS, false);
+		setTile(4, tiles.STONE_IN_WATER, true);
+		setTile(5, tiles.BUSH, true);
 	}
-	
-	public void setTile(int index, BufferedImage tile_texture, Boolean collissionBol) {
+
+	private void setTile(int index, BufferedImage tile_texture, boolean collision) {
 		tile[index] = new Tile();
 		tile[index].image = tile_texture;
-		tile[index].collission = collissionBol;
+		tile[index].collission = collision;
 	}
-	
-	public void loadMap(String filePath) {
-		try {
-			InputStream is = getClass().getResourceAsStream(filePath);
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			
-			int col = 0;
-			int row = 0;
-			
-			while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+
+	private void loadLayer(String path, int[][] layer) {
+		try (InputStream is = getClass().getResourceAsStream(path);
+			 BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+
+			for (int row = 0; row < gp.maxWorldRow; row++) {
 				String line = br.readLine();
-				
-				while(col < gp.maxWorldCol) {
-					
-					String[] numbers = line.split(" ");
-					
-					int num = Integer.parseInt(numbers[col]);
-					
-					mapTileNum[col][row] = num;
-					col++;
-					
-				}
-				
-				
-				if(col == gp.maxWorldCol) {
-					col = 0;
-					row++;
+				String[] numbers = line.split(" ");
+				for (int col = 0; col < gp.maxWorldCol; col++) {
+					layer[col][row] = Integer.parseInt(numbers[col]);
 				}
 			}
-			
-			br.close();
-			
+
 		} catch (Exception e) {
-			
-		}
-	}
-	
-	public void renderTilesWhilePlayerMoves(int worldX, int worldY, int screenX, int screenY, int worldCol, int worldRow, Graphics2D g2) {
-		int tileNum = mapTileNum[worldCol][worldRow];
-		
-		if( worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-			worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-			worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-			worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) 
-		{
-			g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+			e.printStackTrace();
 		}
 	}
 
 	public void draw(Graphics2D g2) {
-		for(int row = 0; row < gp.maxWorldRow; row++) {
-			for(int col = 0; col < gp.maxWorldCol; col++) {
-				int worldX = col * gp.tileSize;
-				int worldY = row * gp.tileSize;
-				int tileNum = mapTileNum[col][row];
+		drawLayer(g2, baseLayer);
+		drawLayer(g2, objectLayer);
+	}
 
-				g2.drawImage(tile[tileNum].image, worldX, worldY, gp.tileSize, gp.tileSize, null);
+	private void drawLayer(Graphics2D g2, int[][] layer) {
+		for (int row = 0; row < gp.maxWorldRow; row++) {
+			for (int col = 0; col < gp.maxWorldCol; col++) {
+				int tileNum = layer[col][row];
+
+				if (layer == objectLayer && tileNum == 0) {
+					continue;
+				}
+
+				if (tileNum >= 0 && tileNum < tile.length && tile[tileNum] != null && tile[tileNum].image != null) {
+					BufferedImage img = tile[tileNum].image;
+
+					int width = tileSize;
+					int height = img.getHeight() * width / img.getWidth();
+
+					int x = col * tileSize;
+					int y = row * tileSize;
+
+					g2.drawImage(img, x, y, width, height, null);
+				}
 			}
 		}
 	}
-	
 }

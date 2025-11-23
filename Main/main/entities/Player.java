@@ -151,7 +151,7 @@ public class Player extends Entity{
                 break;
         }
 	    
-		g2.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
+		g2.drawImage(image, x, y, image.getWidth() * 4, image.getHeight() * 4, null);
 		
 	}
 	
