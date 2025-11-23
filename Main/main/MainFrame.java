@@ -1,6 +1,8 @@
 package main;
 
 
+import main.core.GamePanel;
+
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame{

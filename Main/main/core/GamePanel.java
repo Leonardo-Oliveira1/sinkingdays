@@ -1,4 +1,4 @@
-package main;
+package main.core;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import entity.Player;
-import tile.TileManager;
+import main.entities.Player;
+import main.tile.TileManager;
 
 public class GamePanel extends JPanel{
 
