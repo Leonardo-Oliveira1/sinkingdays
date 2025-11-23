@@ -42,10 +42,6 @@ public class GamePanel extends JPanel{
 		gameThread.start();
 
 	}
-
-	public void update() {
-		player.update();
-	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

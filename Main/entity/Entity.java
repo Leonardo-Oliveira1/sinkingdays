@@ -40,5 +40,7 @@ public class Entity {
 		
 		return sprite;
 	}
-	
+
+	public void update() {
+	}
 }

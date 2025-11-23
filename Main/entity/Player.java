@@ -58,30 +58,27 @@ public class Player extends Entity{
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	public void update() {
-		
 	    if(keyH.wPressed || keyH.aPressed || keyH.sPressed || keyH.dPressed) {
-
-
-
-			if (keyH.wPressed && keyH.aPressed) { 
+			if (keyH.wPressed && keyH.aPressed) {
 				direction = "left";
 				x -= speed;
 				y -= speed;
 
 			}
-			else if (keyH.wPressed && keyH.dPressed) { 
+			else if (keyH.wPressed && keyH.dPressed) {
 				direction = "right";
 				x += speed;
 				y -= speed;
 			}
-			else if (keyH.sPressed && keyH.aPressed) { 
+			else if (keyH.sPressed && keyH.aPressed) {
 				direction = "left";
 				x -= speed;
 				y += speed;
 			}
-			else if (keyH.sPressed && keyH.dPressed) { 
+			else if (keyH.sPressed && keyH.dPressed) {
 				direction = "right";
 				x += speed;
 				y += speed;
@@ -89,7 +86,7 @@ public class Player extends Entity{
 			else if(keyH.wPressed == true) {
 				direction = "up";
 				y -= speed;
-			} 
+			}
 			else if (keyH.sPressed == true) {
 				direction = "down";
 				y += speed;
@@ -102,7 +99,7 @@ public class Player extends Entity{
 				direction = "right";
 				x += speed;
 			}
-			
+
 			spriteCounter++;
 			if (spriteCounter > spriteSpeed) {
 			    spriteNum = (spriteNum % 5) + 1;
@@ -111,7 +108,6 @@ public class Player extends Entity{
 	    } else {
 	    	spriteNum = 1;
 	    }
-	    
 	}
 
 	public BufferedImage animateSpriteSheet(BufferedImage defaultImg, int col) {

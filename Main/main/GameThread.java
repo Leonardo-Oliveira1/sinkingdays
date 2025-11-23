@@ -5,9 +5,13 @@ public class GameThread implements Runnable{
 	int FPS = 60;
 	Thread gameThread;
 	GamePanel gamePanel;
+	EntityManager entityManager;
 
 	public GameThread(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
+		this.entityManager = new EntityManager();
+
+		entityManager.add(gamePanel.player);
 	}
 
 	public void start() {
@@ -23,7 +27,7 @@ public class GameThread implements Runnable{
 		
 		while(gameThread != null) {
 
-			gamePanel.update();
+			entityManager.update();
 			gamePanel.repaint();
 
 			try {
