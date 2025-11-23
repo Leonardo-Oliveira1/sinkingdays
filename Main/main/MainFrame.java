@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 
 public class MainFrame extends JFrame{
 	
-	public MainFrame() {
-
+	public MainFrame()
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle("joguinho");
@@ -21,10 +21,6 @@ public class MainFrame extends JFrame{
 
 		setLocationRelativeTo(null);
 		setVisible(true);
-
-		gamePanel.startGameThread();
-
-
     }
 	
 }

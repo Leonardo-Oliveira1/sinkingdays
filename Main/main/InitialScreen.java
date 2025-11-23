@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 
 public class InitialScreen extends JFrame{
 	public InitialScreen() {
-		setTitle("joguinho");
-		setUndecorated(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(null);
-
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		setLocationRelativeTo(null);
-		setVisible(true);
-
-		this.startGame();
+		new MainFrame();
+//		setTitle("joguinho");
+//		setUndecorated(true);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setLayout(null);
+//
+//		setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		setLocationRelativeTo(null);
+//		setVisible(true);
+//
 //		this.buttonPlay();
 //		this.buttonExit();
 	}
@@ -62,10 +62,5 @@ public class InitialScreen extends JFrame{
 	public void play(ActionEvent e) {
 		MainFrame hs = new MainFrame();
 		this.dispose();
-	}
-
-	public void startGame() {
-		new MainFrame();
-		dispose();
 	}
 }
